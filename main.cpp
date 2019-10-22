@@ -10,9 +10,9 @@ int bubblesort(int v[], int tamanho);
 
 int main(int argc, char** argv)
 {
-    int viktor[7] = { 100, 30, 51, 1, 0, 5, 23 };
+    int vetor[7] = { 100, 30, 51, 1, 0, 5, 23 };
     cout << "Hello World";
-    cout << bubblesort(viktor, 7);
+    cout << bubblesort(vetor, 7);
     return 0;
 }
 
