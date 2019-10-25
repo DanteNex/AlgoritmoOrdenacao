@@ -1,7 +1,10 @@
 #include <iostream>
-#include <chrono>
-using namespace std::chrono;
+#include <time.h>
+#include <stdio.h>
+#include <bits/stdc++.h> 
+
 using namespace std;
+
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
@@ -9,12 +12,33 @@ using namespace std;
 int bubblesort(int v[], int tamanho);
 
 int main(int argc, char** argv)
-{
-    int vetor[7] = { 100, 30, 51, 1, 0, 5, 23 };
-    cout << "Hello World";
-    cout << bubblesort(vetor, 7);
+{		struct timespec start, end; 
+
+
+    int vetor[10] = { 100, 30, 51, 1, 0, 5, 23, 12, 6, 8 };
+    int vetor2[100] = {  30,29,31,16,24,29,28,117,42,23,40,15,18,51,15,19,30,25,17,55,20,12,39,25,56,61,77,34,14,8,31,34,22,12,52,50,24,20,91,33,27,25,83,12,21,38,20,24,37,18,56,20,47,51,22,46,24,35,28,12,28,43,50,37,127,11,12,22,25,57,53,38,33,16,35,29,23,21,11,31,12,37,40,29,14,15,38,74,19,121,52,25,14,12,31,25,16,19,54,24};
+   	//Início do contador de tempo
+	clock_gettime(CLOCK_MONOTONIC, &start); 
+	ios_base::sync_with_stdio(false); 
+	//Função para ser executada
+	bubblesort(vetor2, 100);
+	
+	//Medir tempo de fim de execução
+	clock_gettime(CLOCK_MONOTONIC, &end); 
+	
+	//Cálculo para conseguir o tempo de execução com precisão
+    double time_taken; 
+    time_taken = (end.tv_sec - start.tv_sec) * 1e9; 
+    time_taken = (time_taken + (end.tv_nsec - start.tv_nsec)) * 1e-9; 
+  	
+  	//Mostrar o tempo de execução
+    cout << "Tempo de decorrido: " << fixed 
+         << time_taken << setprecision(9); 
+    cout << " sec" << endl; 
     return 0;
 }
+
+
 
 int bubblesort(int v[], int tamanho)
 {
