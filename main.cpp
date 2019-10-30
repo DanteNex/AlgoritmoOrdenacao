@@ -20,20 +20,36 @@ int main(int argc, char** argv)
 {		struct timespec start, end; 
 
 
-    int vetor10[10];
-    int vetor100[100];
-    int vetor1000[1000];
+    int *vetor;
    	int iteracoesFeitas = 0;
   	int seguraInteiro = 0;
 	 short loopArquivo = 0;
 	 string linha;
-	 ifstream arquivoLista ("vetor100.txt"); 	
+	int tamanhoVetor;
+	  
+	int escolhavetor;
+	cout << "Selecione o vetor para testes:\n";
+	cout << "1 - Vetor com 10 registros\n";
+	cout << "2 - Vetor com 100 registros\n";
+	cout << "3 - Vetor com 1000 registros\n";
+	cin >> escolhavetor;	
+	if(escolhavetor == 1) {
+		tamanhoVetor = 10;
+	} else if(escolhavetor == 2) {
+		tamanhoVetor = 100;
+	} else {
+		tamanhoVetor = 1000;
+	}
+	  vetor = new int[tamanhoVetor];
+	  
+	 ifstream arquivoLista ("vetor" + std::to_string(tamanhoVetor) + ".txt"); 	
    	if(arquivoLista.is_open()) {
    		while(!arquivoLista.eof()) {
    			getline(arquivoLista, linha);
    			stringstream geek(linha);
    			geek >> seguraInteiro;
-   			vetor100[loopArquivo] = seguraInteiro;
+   			
+   			vetor[loopArquivo] = seguraInteiro;
    			loopArquivo++; 			
 		   }
 		   arquivoLista.close();
@@ -42,7 +58,7 @@ int main(int argc, char** argv)
 	clock_gettime(CLOCK_MONOTONIC, &start); 
 	ios_base::sync_with_stdio(false); 
 	//Função para ser executada
-	iteracoesFeitas = selectionsort(vetor100, 100);
+	iteracoesFeitas = selectionsort(vetor, tamanhoVetor);
 	
 	//Medir tempo de fim de execução
 	clock_gettime(CLOCK_MONOTONIC, &end); 
@@ -63,8 +79,6 @@ int main(int argc, char** argv)
 
     return 0;
 }
-
-
 
 int bubblesort(int v[], int tamanho)
 {
