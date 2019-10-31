@@ -15,19 +15,19 @@ using namespace std;
 int bubblesort(int v[], int tamanho);
 int insertionsort( int v[], int tamanho);
 int selectionsort(int v[], int tamanho);
+void executarNovamente();
 
-int main(int argc, char** argv)
-{		struct timespec start, end; 
-
-
+int main(int argc)
+{		
+	struct timespec start, end; 
     int *vetor;
    	int iteracoesFeitas = 0;
   	int seguraInteiro = 0;
-	 short loopArquivo = 0;
-	 string linha;
+	short loopArquivo = 0;
+	string linha;
 	int tamanhoVetor;
-	  
 	int escolhavetor;
+	int escolhaordenacao;
 	cout << "Selecione o vetor para testes:\n";
 	cout << "1 - Vetor com 10 registros\n";
 	cout << "2 - Vetor com 100 registros\n";
@@ -37,12 +37,27 @@ int main(int argc, char** argv)
 		tamanhoVetor = 10;
 	} else if(escolhavetor == 2) {
 		tamanhoVetor = 100;
-	} else {
+	} else if(escolhavetor == 3) {
 		tamanhoVetor = 1000;
+	} else {
+		cout << "Vetor inexistente.";
+		executarNovamente();
 	}
+	
 	  vetor = new int[tamanhoVetor];
-	  
-	 ifstream arquivoLista ("vetor" + std::to_string(tamanhoVetor) + ".txt"); 	
+	
+	cout << "Selecione o tipo de ordenacao:\n";
+	cout << "1 - Bubblesort\n";
+	cout << "2 - Selectionsort\n";
+	cout << "3 - Insertionsort\n";
+	cin >> escolhaordenacao;
+	if(escolhaordenacao != 1 && escolhaordenacao != 2 && escolhaordenacao != 3) {
+		cout << "Tipo inexistente.";
+		executarNovamente();
+	}
+	
+	
+	ifstream arquivoLista ("vetor" + std::to_string(tamanhoVetor) + ".txt"); 	
    	if(arquivoLista.is_open()) {
    		while(!arquivoLista.eof()) {
    			getline(arquivoLista, linha);
@@ -54,16 +69,30 @@ int main(int argc, char** argv)
 		   }
 		   arquivoLista.close();
 		   
-		   	//Início do contador de tempo
+	//Início do contador de tempo
 	clock_gettime(CLOCK_MONOTONIC, &start); 
 	ios_base::sync_with_stdio(false); 
+	
 	//Função para ser executada
-	iteracoesFeitas = selectionsort(vetor, tamanhoVetor);
+	switch(escolhaordenacao) {	
+		case 1:
+		iteracoesFeitas = bubblesort(vetor, tamanhoVetor);	
+			break;			
+		case 2:
+		iteracoesFeitas = selectionsort(vetor, tamanhoVetor);	
+			break;			
+		case 3:
+		iteracoesFeitas = insertionsort(vetor, tamanhoVetor);	
+			break;			
+		default:
+		cout << "Ordenacao inexistente.";
+	}
+	
 	
 	//Medir tempo de fim de execução
 	clock_gettime(CLOCK_MONOTONIC, &end); 
 	
-	//Cálculo para conseguir o tempo de execução com precisÃ£o
+	//Cálculo para conseguir o tempo de execução com precisao
     double time_taken; 
     time_taken = (end.tv_sec - start.tv_sec) * 1e9; 
     time_taken = (time_taken + (end.tv_nsec - start.tv_nsec)) * 1e-9; 
@@ -74,10 +103,27 @@ int main(int argc, char** argv)
     cout << " sec" << " Iteracoes feitas: " << iteracoesFeitas << endl; 
 		   
 	   } else {
-	   	cout << "Não foi possível abrir o arquivo.";
+	   	cout << "Nao foi possivel abrir o arquivo.";
+	   	executarNovamente();
 	   }
-
+	executarNovamente();
     return 0;
+}
+
+void executarNovamente() {
+	int executarnovamente;
+	cout << "\nDeseja executar o programa novamente?\n";
+	cout << "1 - Sim\n";
+	cout << "2 - Nao\n";
+	cin >> executarnovamente;
+	if(executarnovamente == 1) {
+		main(0);
+	} else if(executarnovamente == 2) {
+		exit(0);
+	} else {
+		cout << "Opcao inexistente.";
+		executarNovamente();
+	}
 }
 
 int bubblesort(int v[], int tamanho)
