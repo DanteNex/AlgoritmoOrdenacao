@@ -28,6 +28,7 @@ int main(int argc)
 	int tamanhoVetor;
 	int escolhavetor;
 	int escolhaordenacao;
+	string ordenacaoEscolhida;
 	cout << "Selecione o vetor para testes:\n";
 	cout << "1 - Vetor com 10 registros\n";
 	cout << "2 - Vetor com 100 registros\n";
@@ -77,12 +78,15 @@ int main(int argc)
 	switch(escolhaordenacao) {	
 		case 1:
 		iteracoesFeitas = bubblesort(vetor, tamanhoVetor);	
+		ordenacaoEscolhida = "Bubblesort";
 			break;			
 		case 2:
-		iteracoesFeitas = selectionsort(vetor, tamanhoVetor);	
+		iteracoesFeitas = selectionsort(vetor, tamanhoVetor);
+		ordenacaoEscolhida = "Selectionsort";	
 			break;			
 		case 3:
-		iteracoesFeitas = insertionsort(vetor, tamanhoVetor);	
+		iteracoesFeitas = insertionsort(vetor, tamanhoVetor);
+		ordenacaoEscolhida = "Insertionsort";	
 			break;			
 		default:
 		cout << "Ordenacao inexistente.";
@@ -113,7 +117,7 @@ int main(int argc)
 
 string data_hora = std::to_string(data_hora_atual->tm_hour) + ":" + std::to_string(data_hora_atual->tm_min) + ":" + std::to_string(data_hora_atual->tm_sec) + " - " + std::to_string(data_hora_atual->tm_mday) + "/" + std::to_string(data_hora_atual->tm_mon+1) + "/" + std::to_string(data_hora_atual->tm_year+1900);
 
-  	string filename = "Relatorio_Vetor_" + std::to_string(tamanhoVetor) + "_Ordenado.txt";
+  	string filename = "Relatorio_Vetor_" + std::to_string(tamanhoVetor) + "_" + ordenacaoEscolhida + "_Ordenado.txt";
   	fstream txtstream;
   	txtstream.open(filename,  std::fstream::in | std::fstream::out | std::fstream::app | fstream::trunc);
   	if(!txtstream) {
@@ -123,6 +127,8 @@ string data_hora = std::to_string(data_hora_atual->tm_hour) + ":" + std::to_stri
   			txtstream << vetor[i] << "\n";
 		  }
 		txtstream << "\n------------------------------------\n---- Relatório: "+ data_hora +" ----\n";
+		txtstream << "Método de ordenação: " + ordenacaoEscolhida + "\n";
+		txtstream << "Tamanho do vetor: " + std::to_string(tamanhoVetor) + "\n";
 		txtstream << "Tempo de decorrido: " << fixed << time_taken << setprecision(9); 
 		txtstream << " sec" << " Iteracoes feitas: " << iteracoesFeitas << endl;
 		txtstream.close();
@@ -131,6 +137,8 @@ string data_hora = std::to_string(data_hora_atual->tm_hour) + ":" + std::to_stri
   			txtstream << vetor[i] << "\n";
 		}
 		txtstream << "\n------------------------------------\n---- Relatório: "+ data_hora +" ----\n";
+		txtstream << "Método de ordenação: " + ordenacaoEscolhida + "\n";
+		txtstream << "Tamanho do vetor: " + std::to_string(tamanhoVetor) + "\n";
 		txtstream << "Tempo de decorrido: " << fixed << time_taken << setprecision(9); 
 		txtstream << " sec" << " Iteracoes feitas: " << iteracoesFeitas << endl;
 		txtstream.close();
