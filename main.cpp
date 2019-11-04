@@ -96,6 +96,46 @@ int main(int argc)
     double time_taken; 
     time_taken = (end.tv_sec - start.tv_sec) * 1e9; 
     time_taken = (time_taken + (end.tv_nsec - start.tv_nsec)) * 1e-9; 
+  	time_t rawtime;
+  	
+  //ponteiro para struct que armazena data e hora  
+  struct tm *data_hora_atual;     
+  
+  //variável do tipo time_t para armazenar o tempo em segundos  
+  time_t segundos;
+  
+  //obtendo o tempo em segundos  
+  time(&segundos);   
+  
+  //para converter de segundos para o tempo local  
+  //utilizamos a função localtime  
+  data_hora_atual = localtime(&segundos);  
+
+string data_hora = std::to_string(data_hora_atual->tm_hour) + ":" + std::to_string(data_hora_atual->tm_min) + ":" + std::to_string(data_hora_atual->tm_sec) + " - " + std::to_string(data_hora_atual->tm_mday) + "/" + std::to_string(data_hora_atual->tm_mon+1) + "/" + std::to_string(data_hora_atual->tm_year+1900);
+
+  	string filename = "Relatorio_Vetor_" + std::to_string(tamanhoVetor) + "_Ordenado.txt";
+  	fstream txtstream;
+  	txtstream.open(filename,  std::fstream::in | std::fstream::out | std::fstream::app | fstream::trunc);
+  	if(!txtstream) {
+  		txtstream.open(filename, fstream::in | fstream::out | fstream::trunc);
+  		txtstream << "\n";
+  		for(int i = 0;i < tamanhoVetor;i++) {
+  			txtstream << vetor[i] << "\n";
+		  }
+		txtstream << "\n------------------------------------\n---- Relatório: "+ data_hora +" ----\n";
+		txtstream << "Tempo de decorrido: " << fixed << time_taken << setprecision(9); 
+		txtstream << " sec" << " Iteracoes feitas: " << iteracoesFeitas << endl;
+		txtstream.close();
+	  } else {
+		for(int i = 0;i < tamanhoVetor;i++) {
+  			txtstream << vetor[i] << "\n";
+		}
+		txtstream << "\n------------------------------------\n---- Relatório: "+ data_hora +" ----\n";
+		txtstream << "Tempo de decorrido: " << fixed << time_taken << setprecision(9); 
+		txtstream << " sec" << " Iteracoes feitas: " << iteracoesFeitas << endl;
+		txtstream.close();
+	  }
+  	
   	
   	//Mostrar o tempo de execução
     cout << "Tempo de decorrido: " << fixed 
