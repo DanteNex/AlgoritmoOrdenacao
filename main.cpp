@@ -130,7 +130,7 @@ string data_hora = std::to_string(data_hora_atual->tm_hour) + ":" + std::to_stri
 		txtstream << "Método de ordenação: " + ordenacaoEscolhida + "\n";
 		txtstream << "Tamanho do vetor: " + std::to_string(tamanhoVetor) + "\n";
 		txtstream << "Tempo de decorrido: " << fixed << time_taken << setprecision(9); 
-		txtstream << " sec" << " Iteracoes feitas: " << iteracoesFeitas << endl;
+		txtstream << " sec\n" << "Iteracoes feitas: " << iteracoesFeitas << endl;
 		txtstream.close();
 	  } else {
 		for(int i = 0;i < tamanhoVetor;i++) {
@@ -140,7 +140,7 @@ string data_hora = std::to_string(data_hora_atual->tm_hour) + ":" + std::to_stri
 		txtstream << "Método de ordenação: " + ordenacaoEscolhida + "\n";
 		txtstream << "Tamanho do vetor: " + std::to_string(tamanhoVetor) + "\n";
 		txtstream << "Tempo de decorrido: " << fixed << time_taken << setprecision(9); 
-		txtstream << " sec" << " Iteracoes feitas: " << iteracoesFeitas << endl;
+		txtstream << " sec\n" << "Iteracoes feitas: " << iteracoesFeitas << endl;
 		txtstream.close();
 	  }
   	
@@ -148,7 +148,7 @@ string data_hora = std::to_string(data_hora_atual->tm_hour) + ":" + std::to_stri
   	//Mostrar o tempo de execução
     cout << "Tempo de decorrido: " << fixed 
          << time_taken << setprecision(9); 
-    cout << " sec" << " Iteracoes feitas: " << iteracoesFeitas << endl; 
+    cout << " sec\n" << "Iteracoes feitas: " << iteracoesFeitas << endl; 
 		   
 	   } else {
 	   	cout << "Nao foi possivel abrir o arquivo.";
